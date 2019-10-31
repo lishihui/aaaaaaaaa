@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.shop.address.mapper.IAddressMappers">
+    <select id="queryAddress" resultType="com.fh.shop.address.po.Address">
+        select s.* from
+        (select a.addressId,vipName,addressee,addresseePhone,addresseeName,defaultAddress,
+        concat(a1.areaName,'-->',a2.areaName,'-->',a3.areaName) areaName from t_address a
+        left join t_area a1 on a.sheng=a1.id
+        left join t_area a2 on a.shi=a2.id
+        left join t_area a3 on a.xian=a3.id
+        ) s
+    </select>
+    <select id="toupdate" parameterType="String" resultType="com.fh.shop.address.po.Address">
+        select s.* from
+        (select a.addressId,vipName,addressee,addresseePhone,addresseeName,defaultAddress,
+        concat(a1.areaName,'-->',a2.areaName,'-->',a3.areaName) areaName from t_address a
+        left join t_area a1 on a.sheng=a1.id
+        left join t_area a2 on a.shi=a2.id
+        left join t_area a3 on a.xian=a3.id
+        ) s
+        where s.addressId=#{addressId}
+    </select>
+    <update id="updateAddress" parameterType="com.fh.shop.address.po.Address">
+        update t_address
+        <set>
+            vipName=#{vipName},addressee=#{addressee},addresseePhone=#{addresseePhone},
+            addresseeName=#{addresseeName},defaultAddress=#{defaultAddress},
+            <if test="sheng !=null and sheng!=''">
+                sheng=#{sheng},
+            </if>
+            <if test="shi !=null and shi!=''">
+                shi=#{shi},
+            </if>
+            <if test="xian !=null and xian!=''">
+                xian=#{xian}
+            </if>
+        </set>
+        where addressId=#{addressId}
+    </update>
+</mapper>

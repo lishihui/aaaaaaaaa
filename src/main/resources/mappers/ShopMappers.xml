@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.shop.shop.mapper.IShopMappers">
+    <update id="updateStock">
+        update t_shop set stock=stock-#{count} where id=#{shopId} and stock>=#{count}
+    </update>
+    <select id="queryList" resultType="com.fh.shop.shop.po.Shop">
+        select * from t_shop where stock &lt;10
+    </select>
+</mapper>
