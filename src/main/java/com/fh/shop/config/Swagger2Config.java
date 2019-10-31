@@ -30,7 +30,7 @@ public class Swagger2Config {
                 .globalOperationParameters(pars)
                 .apiInfo(apiInfo());
     }
-
+/*   sjbdhsvdvc*/
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("拾花酿春 RESTful API")
